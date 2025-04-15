@@ -6,8 +6,15 @@ sensor_kit_base_link:
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+  camera_front:
+    x: 1.80
+    y: 0.25
+    z: 1.65
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
   camera_frontal:
-    x: 2.1
+    x: 2.3
     y: -0.3
     z: 0.5
     roll: 0.0
@@ -62,10 +69,38 @@ sensor_kit_base_link:
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
-  camera_front:
-    x: 1.8
-    y: 0.25
-    z: 1.65
+  radar_front_center:
+    x: 2.1
+    y: 0.3
+    z: 0.5
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+  radar_front_right:
+    x: 2.1
+    y: -0.8
+    z: 0.5
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  radar_front_left:
+    x: 2.1
+    y: 0.8
+    z: 0.5
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  radar_rear_right:
+    x: -2.3
+    y: -0.8
+    z: 0.5
+    roll: 0.0
+    pitch: 0.0
+    yaw: 3.14159265359
+  radar_rear_left:
+    x: -2.3
+    y: 0.8
+    z: 0.5
+    roll: 0.0
+    pitch: 0.0
+    yaw: 3.14159265359    

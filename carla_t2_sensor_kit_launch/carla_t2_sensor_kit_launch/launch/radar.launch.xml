@@ -1,0 +1,154 @@
+<launch>
+  <arg name="launch_driver" default="true"/>
+
+  <arg name="score_threshold" default="0.35"/>
+
+  <!-- centerpoint model configs -->
+  <arg name="centerpoint_model_name" default="centerpoint_tiny" description="options: `centerpoint` or `centerpoint_tiny`"/>
+  <arg name="centerpoint_model_path" default="$(find-pkg-share lidar_centerpoint)/data"/>
+  <arg name="lidar_model_param_path" default="$(find-pkg-share autoware_launch)/config/perception/object_recognition/detection/lidar_model"/>
+  
+  <arg name="vehicle_mirror_param_file"/>
+  <arg name="use_pointcloud_container" default="false" description="launch pointcloud container"/>
+  <arg name="pointcloud_container_name" default="pointcloud_container"/>
+
+
+  <group>
+    <push-ros-namespace namespace="radar"/>
+
+    <group>
+      <push-ros-namespace namespace="front_center"/>
+
+        <include file="$(find-pkg-share carla_t2_common_sensor_launch)/launch/carla_lidar_node_container.launch.py">
+	<arg name="sensor_frame" value="lidar_front"/>
+	<arg name="input_topic" value="/sensing/radar/front_center/pointcloud"/>
+	<arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+	<arg name="use_pointcloud_container" value="$(var use_pointcloud_container)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+
+      <group>
+        <push-ros-namespace namespace="centerpoint"/>
+          <group>
+            <include file="$(find-pkg-share lidar_centerpoint)/launch/lidar_centerpoint.launch.xml">
+              <arg name="input/pointcloud" value="/sensing/radar/front_center/pointcloud"/>
+              <arg name="output/objects" value="/sensing/radar/front_center/objects"/>
+              <arg name="score_threshold" value="$(var score_threshold)"/>
+              <arg name="gpu_id" value="1"/>
+              <arg name="model_name" value="$(var centerpoint_model_name)"/>
+              <arg name="model_param_path" value="$(var lidar_model_param_path)/$(var centerpoint_model_name).param.yaml"/>
+            </include>
+          </group>
+      </group>
+    </group>
+
+    
+    <group>
+      <push-ros-namespace namespace="front_right"/>
+
+       
+        <include file="$(find-pkg-share carla_t2_common_sensor_launch)/launch/carla_lidar_node_container.launch.py">
+	<arg name="sensor_frame" value="lidar_front"/>
+	<arg name="input_topic" value="/sensing/radar/front_right/pointcloud"/>
+	<arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+	<arg name="use_pointcloud_container" value="$(var use_pointcloud_container)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+
+      <group>
+        <push-ros-namespace namespace="centerpoint"/>
+          <group>
+            <include file="$(find-pkg-share lidar_centerpoint)/launch/lidar_centerpoint.launch.xml">
+              <arg name="input/pointcloud" value="/sensing/radar/front_right/pointcloud"/>
+              <arg name="output/objects" value="/sensing/radar/front_right/objects"/>
+              <arg name="score_threshold" value="$(var score_threshold)"/>
+              <arg name="gpu_id" value="1"/>
+              <arg name="model_name" value="$(var centerpoint_model_name)"/>
+              <arg name="model_param_path" value="$(var lidar_model_param_path)/$(var centerpoint_model_name).param.yaml"/>
+            </include>
+          </group>
+      </group>
+    </group>
+    
+    <group>
+      <push-ros-namespace namespace="front_left"/>
+
+      
+        <include file="$(find-pkg-share carla_t2_common_sensor_launch)/launch/carla_lidar_node_container.launch.py">
+	<arg name="sensor_frame" value="lidar_front"/>
+	<arg name="input_topic" value="/sensing/radar/front_left/pointcloud"/>
+	<arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+	<arg name="use_pointcloud_container" value="$(var use_pointcloud_container)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+
+      <group>
+        <push-ros-namespace namespace="centerpoint"/>
+          <group>
+            <include file="$(find-pkg-share lidar_centerpoint)/launch/lidar_centerpoint.launch.xml">
+              <arg name="input/pointcloud" value="/sensing/radar/front_left/pointcloud"/>
+              <arg name="output/objects" value="/sensing/radar/front_left/objects"/>
+              <arg name="score_threshold" value="$(var score_threshold)"/>
+              <arg name="gpu_id" value="1"/>
+              <arg name="model_name" value="$(var centerpoint_model_name)"/>
+              <arg name="model_param_path" value="$(var lidar_model_param_path)/$(var centerpoint_model_name).param.yaml"/>
+            </include>
+          </group>
+      </group>
+    </group>
+    
+    <group>
+      <push-ros-namespace namespace="rear_right"/>
+
+      
+        <include file="$(find-pkg-share carla_t2_common_sensor_launch)/launch/carla_lidar_node_container.launch.py">
+	<arg name="sensor_frame" value="lidar_front"/>
+	<arg name="input_topic" value="/sensing/radar/rear_right/pointcloud"/>
+	<arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+	<arg name="use_pointcloud_container" value="$(var use_pointcloud_container)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+
+      <group>
+        <push-ros-namespace namespace="centerpoint"/>
+          <group>
+            <include file="$(find-pkg-share lidar_centerpoint)/launch/lidar_centerpoint.launch.xml">
+              <arg name="input/pointcloud" value="/sensing/radar/rear_right/pointcloud"/>
+              <arg name="output/objects" value="/sensing/radar/rear_right/objects"/>
+              <arg name="score_threshold" value="$(var score_threshold)"/>
+              <arg name="gpu_id" value="1"/>
+              <arg name="model_name" value="$(var centerpoint_model_name)"/>
+              <arg name="model_param_path" value="$(var lidar_model_param_path)/$(var centerpoint_model_name).param.yaml"/>
+            </include>
+          </group>
+      </group>
+    </group>
+    
+    <group>
+      <push-ros-namespace namespace="rear_left"/>
+
+       
+        <include file="$(find-pkg-share carla_t2_common_sensor_launch)/launch/carla_lidar_node_container.launch.py">
+	<arg name="sensor_frame" value="lidar_front"/>
+	<arg name="input_topic" value="/sensing/radar/rear_left/pointcloud"/>
+	<arg name="vehicle_mirror_param_file" value="$(var vehicle_mirror_param_file)"/>
+	<arg name="use_pointcloud_container" value="$(var use_pointcloud_container)"/>
+        <arg name="container_name" value="$(var pointcloud_container_name)"/>
+      </include>
+
+      <group>
+        <push-ros-namespace namespace="centerpoint"/>
+          <group>
+            <include file="$(find-pkg-share lidar_centerpoint)/launch/lidar_centerpoint.launch.xml">
+              <arg name="input/pointcloud" value="/sensing/radar/rear_left/pointcloud"/>
+              <arg name="output/objects" value="/sensing/radar/rear_left/objects"/>
+              <arg name="score_threshold" value="$(var score_threshold)"/>
+              <arg name="gpu_id" value="1"/>
+              <arg name="model_name" value="$(var centerpoint_model_name)"/>
+              <arg name="model_param_path" value="$(var lidar_model_param_path)/$(var centerpoint_model_name).param.yaml"/>
+            </include>
+          </group>
+      </group>
+    </group>
+  </group>
+</launch>

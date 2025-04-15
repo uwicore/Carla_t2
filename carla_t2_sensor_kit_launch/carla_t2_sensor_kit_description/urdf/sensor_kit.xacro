@@ -6,7 +6,7 @@
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
     <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
 
-    <xacro:arg name="gpu" default="false"/>
+    <xacro:arg name="gpu" default="true"/>
     <xacro:arg name="config_dir" default="$(find carla_t2_sensor_kit_description)/config"/>
 
     <xacro:property name="sensor_kit_base_link" default="sensor_kit_base_link"/>
@@ -61,9 +61,9 @@
       roll="${calibration['sensor_kit_base_link']['camera_frontal']['roll']}"
       pitch="${calibration['sensor_kit_base_link']['camera_frontal']['pitch']}"
       yaw="${calibration['sensor_kit_base_link']['camera_frontal']['yaw']}"
-      fps="30"
-      width="2560"
-      height="1440"
+      fps="10"
+      width="800"
+      height="600"
       fov="90.0"
     />
     <xacro:monocular_camera_macro
@@ -76,9 +76,9 @@
       roll="${calibration['sensor_kit_base_link']['camera_rear']['roll']}"
       pitch="${calibration['sensor_kit_base_link']['camera_rear']['pitch']}"
       yaw="${calibration['sensor_kit_base_link']['camera_rear']['yaw']}"
-      fps="30"
-      width="2560"
-      height="1440"
+      fps="10"
+      width="800"
+      height="600"
       fov="90.0"
     />
     <xacro:monocular_camera_macro
@@ -91,8 +91,8 @@
       roll="${calibration['sensor_kit_base_link']['camera_center']['roll']}"
       pitch="${calibration['sensor_kit_base_link']['camera_center']['pitch']}"
       yaw="${calibration['sensor_kit_base_link']['camera_center']['yaw']}"
-      fps="30"
-      width="2560"
+      fps="10"
+      width="800"
       height="1440"
       fov="90.0"
     />
@@ -106,9 +106,9 @@
       roll="${calibration['sensor_kit_base_link']['camera_right']['roll']}"
       pitch="${calibration['sensor_kit_base_link']['camera_right']['pitch']}"
       yaw="${calibration['sensor_kit_base_link']['camera_right']['yaw']}"
-      fps="30"
-      width="2560"
-      height="1440"
+      fps="10"
+      width="800"
+      height="600"
       fov="90.0"
     />
     <xacro:monocular_camera_macro
@@ -121,9 +121,9 @@
       roll="${calibration['sensor_kit_base_link']['camera_left']['roll']}"
       pitch="${calibration['sensor_kit_base_link']['camera_left']['pitch']}"
       yaw="${calibration['sensor_kit_base_link']['camera_left']['yaw']}"
-      fps="30"
-      width="2560"
-      height="1440"
+      fps="10"
+      width="800"
+      height="600"
       fov="90.0"
     />
     
@@ -154,5 +154,59 @@
       yaw="${calibration['sensor_kit_base_link']['imu_link']['yaw']}"
       fps="100"
     />
-  </xacro:macro>
-</robot>
+    <!-- radars -->
+    <xacro:VLS-128 parent="sensor_kit_base_link" name="radar_front_center" topic="/points_raw" hz="10" samples="220" gpu="$(arg gpu)">
+      <origin
+        xyz="${calibration['sensor_kit_base_link']['radar_front_center']['x']}
+             ${calibration['sensor_kit_base_link']['radar_front_center']['y']}
+             ${calibration['sensor_kit_base_link']['radar_front_center']['z']}"
+        rpy="${calibration['sensor_kit_base_link']['radar_front_center']['roll']}
+             ${calibration['sensor_kit_base_link']['radar_front_center']['pitch']}
+             ${calibration['sensor_kit_base_link']['radar_front_center']['yaw']}"
+      />
+    </xacro:VLS-128>
+    <xacro:VLS-128 parent="sensor_kit_base_link" name="radar_front_right" topic="/points_raw" hz="10" samples="220" gpu="$(arg gpu)">
+      <origin
+        xyz="${calibration['sensor_kit_base_link']['radar_front_right']['x']}
+             ${calibration['sensor_kit_base_link']['radar_front_right']['y']}
+             ${calibration['sensor_kit_base_link']['radar_front_right']['z']}"
+        rpy="${calibration['sensor_kit_base_link']['radar_front_right']['roll']}
+             ${calibration['sensor_kit_base_link']['radar_front_right']['pitch']}
+             ${calibration['sensor_kit_base_link']['radar_front_right']['yaw']}"
+      />
+    </xacro:VLS-128>
+    
+    <xacro:VLS-128 parent="sensor_kit_base_link" name="radar_front_left" topic="/points_raw" hz="10" samples="220" gpu="$(arg gpu)">
+      <origin
+        xyz="${calibration['sensor_kit_base_link']['radar_front_left']['x']}
+             ${calibration['sensor_kit_base_link']['radar_front_left']['y']}
+             ${calibration['sensor_kit_base_link']['radar_front_left']['z']}"
+        rpy="${calibration['sensor_kit_base_link']['radar_front_left']['roll']}
+             ${calibration['sensor_kit_base_link']['radar_front_left']['pitch']}
+             ${calibration['sensor_kit_base_link']['radar_front_left']['yaw']}"
+      />
+    </xacro:VLS-128>
+    
+    <xacro:VLS-128 parent="sensor_kit_base_link" name="radar_rear_right" topic="/points_raw" hz="10" samples="220" gpu="$(arg gpu)">
+      <origin
+        xyz="${calibration['sensor_kit_base_link']['radar_rear_right']['x']}
+             ${calibration['sensor_kit_base_link']['radar_rear_right']['y']}
+             ${calibration['sensor_kit_base_link']['radar_rear_right']['z']}"
+        rpy="${calibration['sensor_kit_base_link']['radar_rear_right']['roll']}
+             ${calibration['sensor_kit_base_link']['radar_rear_right']['pitch']}
+             ${calibration['sensor_kit_base_link']['radar_rear_right']['yaw']}"
+      />
+    </xacro:VLS-128>
+    
+    <xacro:VLS-128 parent="sensor_kit_base_link" name="radar_rear_left" topic="/points_raw" hz="10" samples="220" gpu="$(arg gpu)">
+      <origin
+        xyz="${calibration['sensor_kit_base_link']['radar_rear_left']['x']}
+             ${calibration['sensor_kit_base_link']['radar_rear_left']['y']}
+             ${calibration['sensor_kit_base_link']['radar_rear_left']['z']}"
+        rpy="${calibration['sensor_kit_base_link']['radar_rear_left']['roll']}
+             ${calibration['sensor_kit_base_link']['radar_rear_left']['pitch']}
+             ${calibration['sensor_kit_base_link']['radar_rear_left']['yaw']}"
+      />
+    </xacro:VLS-128>
+ </xacro:macro>
+ </robot>
